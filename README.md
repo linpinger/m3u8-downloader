@@ -1,3 +1,12 @@
+# M3U8
+
+## 魔改的地方
+- 原作者项目地址: (https://github.com/llychao/m3u8-downloader)
+- 修改命令行 默认用法: m3u8 url/of/list.m3u8
+- 2021-07-14: 添加: http下载的User-Agent，有些站点会要求这个，见 tool/http.go
+
+## 以下为原版内容
+
 # m3u8-downloader
 
 golang 多线程下载直播流m3u8格式的视屏，跨平台。 你只需指定必要的 flag (`u`、`o`、`n`、`ht`) 来运行, 工具就会自动帮你解析 M3U8 文件，并将 TS 片段下载下来合并成一个文件。

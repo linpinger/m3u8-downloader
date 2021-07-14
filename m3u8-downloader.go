@@ -36,6 +36,7 @@ var (
 	htFlag  = flag.String("ht", "apiv1", "设置getHost的方式(apiv1: `http(s):// + url.Host + path.Dir(url.Path)`; apiv2: `http(s)://+ u.Host`")
 	oFlag   = flag.String("o", "output", "自定义文件名(默认为output)")
 	cFlag   = flag.String("c", "", "自定义请求cookie")
+	rFlag   = flag.String("r", "", "自定义Referer")
 	sFlag   = flag.Int("s", 0, "是否允许不安全的请求(默认为0)")
 
 	logger *log.Logger
@@ -78,7 +79,12 @@ func Run() {
 	hostType := *htFlag
 	movieDir := *oFlag
 	cookie := *cFlag
+	referer := *rFlag
 	insecure := *sFlag
+
+	if 2 == len(os.Args) {
+		m3u8Url = os.Args[1]
+	}
 
 	if insecure != 0 {
 		ro.InsecureSkipVerify = true
@@ -87,6 +93,9 @@ func Run() {
 	//http自定义cookie
 	if cookie != "" {
 		ro.Headers["Cookie"] = cookie
+	}
+	if referer != "" {
+		ro.Headers["Referer"] = referer
 	}
 
 	if !strings.HasPrefix(m3u8Url, "http") || !strings.Contains(m3u8Url, "m3u8") || m3u8Url == "" {
