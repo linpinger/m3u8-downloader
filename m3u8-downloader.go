@@ -106,7 +106,7 @@ func Run() {
 	var download_dir string
 	pwd, _ := os.Getwd()
 	//pwd = "/Users/chao/Desktop" //自定义地址
-	download_dir = pwd + "/movie/" + movieDir
+	download_dir = pwd + "/" + movieDir
 	if isExist, _ := PathExists(download_dir); !isExist {
 		os.MkdirAll(download_dir, os.ModePerm)
 	} else {
@@ -135,7 +135,7 @@ func Run() {
 	default:
 		unix_merge_file(download_dir)
 	}
-	os.Rename(download_dir+"/merge.mp4", download_dir+".mp4")
+	os.Rename(download_dir+"/merge.ts", download_dir+".ts")
 	os.RemoveAll(download_dir)
 
 	DrawProgressBar("Merging", float32(1), progressWidth, "merge.ts")
@@ -345,7 +345,7 @@ func win_merge_file(path string) {
 	os.Chdir(path)
 	ExecWinShell("copy /b *.ts merge.tmp")
 	ExecWinShell("del /Q *.ts")
-	os.Rename("merge.tmp", "merge.mp4")
+	os.Rename("merge.tmp", "merge.ts")
 }
 
 //unix合并文件
@@ -355,7 +355,7 @@ func unix_merge_file(path string) {
 	cmd := `cat *.ts >> merge.tmp`
 	ExecUnixShell(cmd)
 	ExecUnixShell("rm -rf *.ts")
-	os.Rename("merge.tmp", "merge.mp4")
+	os.Rename("merge.tmp", "merge.ts")
 }
 
 // ============================== 加解密相关 ==============================
